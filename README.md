@@ -191,7 +191,7 @@ function openFB(){
 
 function askAI(){
     let i=document.getElementById('aiInput').value.toLowerCase();
-    let r="I am learning boss 🤖";
+    let r="I am update boss 🤖";
 
     if(i.includes('hi')) r="Hello boss 😎";
     if(i.includes('game')) r="Gaming mode activated 🎮";
