@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOUROVX OS DASHBOARD</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+    margin:0;
+    font-family: sans-serif;
+    background: radial-gradient(circle at top,#0b1220,#05070f);
+    color:white;
+    overflow:hidden;
+}
+
+/* animated grid background */
+.bg-grid{
+    position:fixed;
+    width:200%;
+    height:200%;
+    background-image: linear-gradient(rgba(0,150,255,0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,150,255,0.1) 1px, transparent 1px);
+    background-size:50px 50px;
+    animation: move 20s linear infinite;
+    opacity:0.3;
+}
+
+@keyframes move{
+    from{transform:translate(0,0)}
+    to{transform:translate(-50px,-50px)}
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(0,180,255,0.25);
+    backdrop-filter:blur(12px);
+    border-radius:16px;
+    transition:0.3s;
+}
+.card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(0,180,255,0.4);
+}
+
+.sidebar{
+    width:240px;
+    height:100vh;
+    position:fixed;
+    background:#0a0f1a;
+    border-right:1px solid #1f2a44;
+}
+
+.main{
+    margin-left:240px;
+    padding:20px;
+}
+
+.btn{
+    background:#2563eb;
+    padding:10px;
+    border-radius:10px;
+    width:100%;
+    margin-top:10px;
+    font-weight:bold;
+    transition:0.3s;
+}
+.btn:hover{
+    box-shadow:0 0 15px #2563eb;
+    transform:scale(1.05);
+}
+
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+<div class="bg-grid"></div>
+
+<!-- LOGIN -->
+<div id="login" class="flex items-center justify-center h-screen">
+    <div class="card p-6 w-80">
+        <h1 class="text-3xl font-bold text-center mb-4">SOUROVX OS</h1>
+
+        <input id="user" class="w-full p-3 mb-2 bg-slate-800 rounded" placeholder="Username">
+        <input id="pass" type="password" class="w-full p-3 mb-3 bg-slate-800 rounded" placeholder="Password">
+
+        <button class="btn" onclick="login()">LOGIN</button>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash" class="hidden">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar p-5">
+        <h2 class="text-xl font-bold mb-6">SOUROVX OS</h2>
+
+        <div class="space-y-3 text-sm">
+            <div onclick="show('home')" class="cursor-pointer">🏠 Home</div>
+            <div onclick="show('ai')" class="cursor-pointer">🤖 AI Core</div>
+            <div onclick="openFB()" class="cursor-pointer">🔵 Facebook</div>
+            <div onclick="logout()" class="text-red-400 cursor-pointer">⛔ Logout</div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- HOME -->
+        <div id="home">
+            <h1 class="text-4xl font-bold mb-2">⚡ SYSTEM ONLINE</h1>
+            <p class="text-slate-400 mb-6">Next Gen Gaming OS Dashboard</p>
+
+            <div class="grid grid-cols-3 gap-4">
+
+                <div class="card p-5">
+                    💰 Revenue<br><span class="text-2xl">$30K</span>
+                </div>
+
+                <div class="card p-5">
+                    👤 Users<br><span class="text-2xl">22K</span>
+                </div>
+
+                <div class="card p-5">
+                    ⚔️ Battles<br><span class="text-2xl">510</span>
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mt-6">
+
+                <div class="card p-5">
+                    <h2 class="font-bold mb-2">⚡ Quick Control</h2>
+                    <button class="btn">Start Engine</button>
+                    <button class="btn">Boost Mode</button>
+                </div>
+
+                <div class="card p-5">
+                    <h2 class="font-bold mb-2">🤖 AI Status</h2>
+                    <p class="text-green-400">● ONLINE</p>
+                    <p class="text-sm text-slate-400">All systems stable</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- AI -->
+        <div id="ai" class="hidden">
+            <h1 class="text-3xl font-bold mb-4">🤖 AI CORE</h1>
+
+            <div class="card p-5">
+                <p id="aiText">Hello boss 👋</p>
+
+                <input id="aiInput" class="w-full mt-3 p-3 bg-slate-800 rounded" placeholder="Ask AI...">
+                <button class="btn" onclick="askAI()">SEND</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+function login(){
+    let u=document.getElementById('user').value;
+    let p=document.getElementById('pass').value;
+
+    if(u==='sourov' && p==='1111'){
+        document.getElementById('login').classList.add('hidden');
+        document.getElementById('dash').classList.remove('hidden');
+    }else{
+        alert('Wrong login');
+    }
+}
+
+function logout(){location.reload();}
+
+function show(id){
+    document.getElementById('home').classList.add('hidden');
+    document.getElementById('ai').classList.add('hidden');
+    document.getElementById(id).classList.remove('hidden');
+}
+
+function openFB(){
+    window.open('https://facebook.com/YOUR_PAGE','_blank');
+}
+
+function askAI(){
+    let i=document.getElementById('aiInput').value.toLowerCase();
+    let r="I am learning boss 🤖";
+
+    if(i.includes('hi')) r="Hello boss 😎";
+    if(i.includes('game')) r="Gaming mode activated 🎮";
+
+    document.getElementById('aiText').innerText=r;
+}
+
+</script>
+
+</body>
+</html>
